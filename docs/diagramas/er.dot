@@ -1,0 +1,17 @@
+digraph ER {
+  rankdir=LR; fontname="Times New Roman"; node [shape=plaintext, fontname="Times New Roman", fontsize=11]; edge [fontname="Times New Roman", fontsize=10, arrowhead=none];
+  usuario [label=<<table border="1" cellborder="0" cellspacing="0" cellpadding="3"><tr><td bgcolor="#d9e2f3"><b>usuario</b></td></tr><tr><td align="left"><u>id</u> BIGINT PK</td></tr><tr><td align="left">codigo VARCHAR(30) UK</td></tr><tr><td align="left">nombre VARCHAR(100)</td></tr></table>>];
+  periodo [label=<<table border="1" cellborder="0" cellspacing="0" cellpadding="3"><tr><td bgcolor="#d9e2f3"><b>periodo</b></td></tr><tr><td align="left"><u>id</u> BIGINT PK</td></tr><tr><td align="left">codigo VARCHAR(30) UK</td></tr><tr><td align="left">fecha DATE</td></tr><tr><td align="left">hora_inicio TIME</td></tr><tr><td align="left">hora_fin TIME</td></tr></table>>];
+  equipo [label=<<table border="1" cellborder="0" cellspacing="0" cellpadding="3"><tr><td bgcolor="#d9e2f3"><b>equipo</b></td></tr><tr><td align="left"><u>id</u> BIGINT PK</td></tr><tr><td align="left">codigo VARCHAR(30) UK</td></tr><tr><td align="left">descripcion VARCHAR(200)</td></tr><tr><td align="left">activo BOOLEAN</td></tr></table>>];
+  sesion [label=<<table border="1" cellborder="0" cellspacing="0" cellpadding="3"><tr><td bgcolor="#d9e2f3"><b>sesion</b></td></tr><tr><td align="left"><u>id</u> BIGINT PK</td></tr><tr><td align="left">codigo VARCHAR(30) UK</td></tr><tr><td align="left">titulo VARCHAR(150)</td></tr></table>>];
+  reserva [label=<<table border="1" cellborder="0" cellspacing="0" cellpadding="3"><tr><td bgcolor="#fff2cc"><b>reserva</b></td></tr><tr><td align="left"><u>id</u> BIGINT PK</td></tr><tr><td align="left">sesion_id FK UK</td></tr><tr><td align="left">periodo_id FK</td></tr><tr><td align="left">equipo_id FK</td></tr><tr><td align="left">origen VARCHAR(15)</td></tr><tr><td align="left"><i>UK (periodo_id, equipo_id)</i></td></tr></table>>];
+  participacion [label=<<table border="1" cellborder="0" cellspacing="0" cellpadding="3"><tr><td bgcolor="#e2efd9"><b>participacion</b></td></tr><tr><td align="left">sesion_id FK</td></tr><tr><td align="left">usuario_id FK</td></tr></table>>];
+  disponibilidad [label=<<table border="1" cellborder="0" cellspacing="0" cellpadding="3"><tr><td bgcolor="#e2efd9"><b>disponibilidad</b></td></tr><tr><td align="left">usuario_id FK</td></tr><tr><td align="left">periodo_id FK</td></tr></table>>];
+  sesion -> participacion [taillabel="1", headlabel="N"];
+  usuario -> participacion [taillabel="1", headlabel="N"];
+  usuario -> disponibilidad [taillabel="1", headlabel="N"];
+  periodo -> disponibilidad [taillabel="1", headlabel="N"];
+  sesion -> reserva [taillabel="1", headlabel="0..1"];
+  periodo -> reserva [taillabel="1", headlabel="N"];
+  equipo -> reserva [taillabel="1", headlabel="N"];
+}

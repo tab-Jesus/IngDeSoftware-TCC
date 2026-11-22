@@ -1,0 +1,17 @@
+digraph COMP {
+  rankdir=TB; fontname="Times New Roman"; node [shape=component, fontname="Times New Roman", fontsize=11, style=filled, fillcolor="#ffffff"]; edge [fontname="Times New Roman", fontsize=10];
+  subgraph cluster_api { label="turnos-api (Spring Boot)"; style=rounded;
+    c1 [label="controller\n(6 controladores REST)", fillcolor="#d9e2f3"];
+    c2 [label="service\n(6 servicios + ProblemaFactory)", fillcolor="#e2efd9"];
+    c3 [label="domain\n(planificador, grafo, validador)", fillcolor="#fff2cc"];
+    c4 [label="repository\n(5 repositorios JPA)", fillcolor="#e2efd9"];
+    c5 [label="model\n(entidades JPA)", fillcolor="#e2efd9"];
+    c6 [label="exception\n(manejador global)", fillcolor="#fce4d6"];
+    c7 [label="config\n(OpenAPI, beans, datos de ejemplo)", fillcolor="#f2f2f2"];
+  }
+  jdbc [label="Hibernate + driver\nPostgreSQL", fillcolor="#f2f2f2"];
+  db [label="Base de datos\nturnos", shape=cylinder, fillcolor="#f2f2f2"];
+  api_if [label="API REST\n/api/v1/*", shape=circle, width=0.5, label="REST"];
+  api_if -> c1 [arrowhead=none];
+  c1 -> c2; c1 -> c6 [style=dashed]; c2 -> c3; c2 -> c4; c4 -> c5; c7 -> c3 [style=dashed, label="beans"]; c4 -> jdbc; jdbc -> db;
+}

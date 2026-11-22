@@ -1,0 +1,22 @@
+digraph CU {
+  rankdir=LR; fontname="Times New Roman"; node [fontname="Times New Roman", fontsize=11]; edge [fontname="Times New Roman", fontsize=10];
+  admin [label="Administrador\nde la sala", shape=box, style="rounded,filled", fillcolor="#e8eef7"];
+  cons  [label="Consultor\n(facilitador / usuario)", shape=box, style="rounded,filled", fillcolor="#e8eef7"];
+  subgraph cluster_sys { label="Sistema: API de turnos y recursos"; style=rounded; fontsize=12;
+    cu1 [label="CU-01 Gestionar usuarios\ny disponibilidad", shape=ellipse];
+    cu2 [label="CU-02 Gestionar equipos", shape=ellipse];
+    cu3 [label="CU-03 Gestionar períodos", shape=ellipse];
+    cu4 [label="CU-04 Gestionar sesiones\ny participantes", shape=ellipse];
+    cu5 [label="CU-05 Generar agenda\nautomática", shape=ellipse, style=filled, fillcolor="#fff2cc"];
+    cu6 [label="CU-06 Registrar reserva\nmanual", shape=ellipse];
+    cu7 [label="CU-07 Validar agenda", shape=ellipse];
+    cu8 [label="CU-08 Consultar grafo\nde conflictos", shape=ellipse];
+    cu9 [label="CU-09 Consultar agenda\ny reservas", shape=ellipse];
+    cu10 [label="Verificar reglas\nde consistencia", shape=ellipse, style=dashed];
+  }
+  admin -> {cu1 cu2 cu3 cu4 cu5 cu6 cu7 cu8 cu9} [arrowhead=none];
+  cons -> {cu9 cu7 cu8} [arrowhead=none];
+  cu5 -> cu10 [style=dashed, label="«include»"];
+  cu6 -> cu10 [style=dashed, label="«include»"];
+  cu7 -> cu10 [style=dashed, label="«include»"];
+}

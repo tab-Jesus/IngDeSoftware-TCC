@@ -1,0 +1,13 @@
+graph G {
+  layout=neato; fontname="Times New Roman"; node [shape=circle, style=filled, fontname="Times New Roman", fontsize=14, width=0.6, fixedsize=true]; edge [color="#555555"];
+  A [pos="0,1.2!", fillcolor="#9dc3e6", label="A\nt1"];
+  B [pos="2,2.2!", fillcolor="#f4b183", label="B\nt2"];
+  C [pos="2,0.2!", fillcolor="#a9d18e", label="C\nt3"];
+  D [pos="4.2,1.2!", fillcolor="#9dc3e6", label="D\nt1"];
+  E [pos="4.2,-0.9!", fillcolor="#f4b183", label="E\nt2"];
+  F [pos="2.2,-1.8!", fillcolor="#9dc3e6", label="F\nt1"];
+  G [pos="0,-0.9!", fillcolor="#f4b183", label="G\nt2"];
+  A -- B [label="u2", fontsize=10]; A -- C [label="u1", fontsize=10]; A -- G [label="u1", fontsize=10];
+  B -- C [label="u3", fontsize=10]; B -- D [label="u3", fontsize=10]; C -- D [label="u3", fontsize=10]; C -- G [label="u1", fontsize=10];
+  D -- E [label="u4", fontsize=10]; E -- F [label="u5", fontsize=10]; F -- G [label="u6", fontsize=10];
+}

@@ -1,0 +1,14 @@
+digraph DEP {
+  rankdir=TB; fontname="Times New Roman"; node [fontname="Times New Roman", fontsize=11]; edge [fontname="Times New Roman", fontsize=10];
+  subgraph cluster_cli { label="Equipo del usuario"; style=rounded; cl [label="Postman / Insomnia /\nNavegador (Swagger UI)", shape=box3d, style=filled, fillcolor="#f2f2f2"]; }
+  subgraph cluster_host { label="Servidor / equipo anfitrión con Docker Engine"; style=rounded;
+    subgraph cluster_net { label="Red de docker-compose"; style=dashed;
+      api [label="«contenedor» api\nimagen turnos-api (eclipse-temurin:17-jre)\nJAR Spring Boot — puerto 8080", shape=box3d, style=filled, fillcolor="#d9e2f3"];
+      db [label="«contenedor» db\npostgres:16 — puerto 5432", shape=box3d, style=filled, fillcolor="#e2efd9"];
+    }
+    vol [label="Volumen\nturnos-datos", shape=cylinder, style=filled, fillcolor="#fff2cc"];
+  }
+  cl -> api [label=" HTTP :8080 (JSON)"];
+  api -> db [label=" JDBC :5432"];
+  db -> vol [label=" /var/lib/postgresql/data"];
+}

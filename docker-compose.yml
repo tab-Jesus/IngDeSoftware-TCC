@@ -1,0 +1,32 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: turnos
+      POSTGRES_USER: turnos
+      POSTGRES_PASSWORD: turnos
+    ports:
+      - "5432:5432"
+    volumes:
+      - turnos-datos:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U turnos -d turnos"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  api:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DB_URL: jdbc:postgresql://db:5432/turnos
+      DB_USER: turnos
+      DB_PASSWORD: turnos
+      APP_SEED_ENABLED: "true"
+    ports:
+      - "8080:8080"
+
+volumes:
+  turnos-datos:

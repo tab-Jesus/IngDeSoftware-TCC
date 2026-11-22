@@ -1,0 +1,16 @@
+digraph ARQ {
+  rankdir=TB; fontname="Times New Roman"; node [shape=box, style="rounded,filled", fontname="Times New Roman", fontsize=11, width=3.2]; edge [fontname="Times New Roman", fontsize=10];
+  cli [label="Cliente (Postman / Insomnia / Swagger UI)", fillcolor="#f2f2f2"];
+  ctl [label="Capa de presentación\ncontroller: @RestController\nDTO (records) + @Valid", fillcolor="#d9e2f3"];
+  exc [label="exception: @RestControllerAdvice\n(400, 404, 409, 422)", fillcolor="#fce4d6", width=3];
+  svc [label="Capa de aplicación\nservice: casos de uso + @Transactional", fillcolor="#e2efd9"];
+  dom [label="Capa de dominio (sin Spring)\ndomain: GrafoConflictos\nPlanificadorColoracion · ValidadorAgenda", fillcolor="#fff2cc"];
+  rep [label="Capa de persistencia\nrepository: Spring Data JPA\nmodel: entidades", fillcolor="#e2efd9"];
+  db [label="PostgreSQL 16", shape=cylinder, fillcolor="#f2f2f2", width=2];
+  cli -> ctl [label=" HTTP / JSON"];
+  ctl -> svc [label=" depende de"];
+  ctl -> exc [style=dashed, dir=none];
+  svc -> dom [label=" usa"];
+  svc -> rep [label=" depende de"];
+  rep -> db [label=" JDBC"];
+}
